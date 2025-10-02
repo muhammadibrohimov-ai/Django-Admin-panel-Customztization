@@ -1,11 +1,12 @@
 from django.contrib import admin
 from .models import Author, Book
 from import_export.admin import ImportExportModelAdmin
+from unfold.admin import ModelAdmin
 
 # Register your models here.
 
 @admin.register(Author)
-class AuthorAdmin(ImportExportModelAdmin):
+class AuthorAdmin(ModelAdmin, ImportExportModelAdmin):
     list_display = ['name', 'year', 'email', 'address', 'created_at']
     search_fields = ['name', 'email']
     list_filter = ['year', 'created_at']
@@ -13,7 +14,7 @@ class AuthorAdmin(ImportExportModelAdmin):
     list_editable = ['email', 'address']
     
 @admin.register(Book)
-class BookAdmin(ImportExportModelAdmin):
+class BookAdmin(ModelAdmin, ImportExportModelAdmin):
     list_display = ['title', 'genre', 'author', 'year', 'price']
     search_fields = ['author__name', 'title', 'genre']
     list_filter = ['year', 'author', 'created_at', 'genre']
